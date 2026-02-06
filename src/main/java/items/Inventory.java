@@ -80,7 +80,7 @@ public class Inventory
     public boolean isFull()
     {
         // Replace the next line
-        return false;
+        return this.slots.currentSize == this.totalSlots();
     }
 
     /**
@@ -102,6 +102,20 @@ public class Inventory
     {
         LinkedList.Node<ItemStack> newNode = new LinkedList.Node<>(toAdd);
 
+        // First Node
+        if (this.slots.head == null) {
+            this.slots.head = newNode;
+            this.slots.tail = newNode;
+
+            this.slots.currentSize = 1;
+            return;
+        }
+
+        // General Case
+        this.slots.tail.next = newNode;
+        this.slots.tail = newNode;
+
+        this.slots.currentSize++;
         // Use the appendNode/add logic from Review 1 as your starting point
         // Once we reach this function... we know that `toAdd` must be stored
     }
